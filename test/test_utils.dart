@@ -17,17 +17,15 @@ Decoration decoration = BoxDecoration(
 
 Future<CategoryPicker> testCategoryPicker({
   required WidgetTester tester,
-  required int minValue,
-  required int maxValue,
-  required int initialValue,
+  required List<String> options,
+  required String initialValue,
   required int scrollBy,
-  int step = 1,
   TextMapper? textMapper,
-  required int expectedValue,
+  required String expectedValue,
   Axis axis = Axis.vertical,
   Decoration? decoration,
 }) async {
-  int value = initialValue;
+  String value = initialValue;
   late CategoryPicker picker;
 
   await tester.pumpWidget(
@@ -35,9 +33,7 @@ Future<CategoryPicker> testCategoryPicker({
       picker = axis == Axis.vertical
           ? picker = CategoryPicker(
               value: value,
-              minValue: minValue,
-              maxValue: maxValue,
-              step: step,
+              options: options,
               textMapper: textMapper,
               decoration: decoration,
               onChanged: (newValue) => setState(() => value = newValue),
@@ -45,9 +41,7 @@ Future<CategoryPicker> testCategoryPicker({
           : CategoryPicker(
               axis: Axis.horizontal,
               value: value,
-              minValue: minValue,
-              maxValue: maxValue,
-              step: step,
+              options: options,
               textMapper: textMapper,
               decoration: decoration,
               onChanged: (newValue) => setState(() => value = newValue),
@@ -71,18 +65,15 @@ Future<CategoryPicker> testCategoryPicker({
 
 Future<CategoryPicker> testMultipleValuesInPicker({
   required WidgetTester tester,
-  required int minValue,
-  required int maxValue,
-  required int initialValue,
+  required List<String> options,
+  required String initialValue,
   required int scrollBy,
-  int step = 1,
   TextMapper? textMapper,
   bool animateToItself = false,
   Axis axis = Axis.vertical,
-  bool zeroPad = false,
   required List<String> expectedDisplayValues,
 }) async {
-  int value = initialValue;
+  String value = initialValue;
   late CategoryPicker picker;
 
   await tester.pumpWidget(
@@ -90,20 +81,14 @@ Future<CategoryPicker> testMultipleValuesInPicker({
       picker = axis == Axis.vertical
           ? picker = CategoryPicker(
               value: value,
-              minValue: minValue,
-              maxValue: maxValue,
-              step: step,
+              options: options,
               textMapper: textMapper,
               onChanged: (newValue) => setState(() => value = newValue),
-              zeroPad: zeroPad,
             )
           : CategoryPicker(
               value: value,
-              minValue: minValue,
-              maxValue: maxValue,
-              step: step,
+              options: options,
               textMapper: textMapper,
-              zeroPad: zeroPad,
               onChanged: (newValue) => setState(() => value = newValue),
             );
       return MaterialApp(

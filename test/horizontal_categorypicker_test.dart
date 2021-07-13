@@ -7,11 +7,10 @@ void main() {
   testWidgets('small scroll up works', (WidgetTester tester) async {
     await testCategoryPicker(
       tester: tester,
-      minValue: 1,
-      maxValue: 10,
-      initialValue: 5,
+      options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
+      initialValue: 'Banana',
       scrollBy: 2,
-      expectedValue: 7,
+      expectedValue: 'Cherry',
       axis: Axis.horizontal,
     );
   });
@@ -19,11 +18,10 @@ void main() {
   testWidgets('small scroll down works', (WidgetTester tester) async {
     await testCategoryPicker(
       tester: tester,
-      minValue: 1,
-      maxValue: 10,
-      initialValue: 5,
+      options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
+      initialValue: 'Cherry',
       scrollBy: -2,
-      expectedValue: 3,
+      expectedValue: 'Banana',
       axis: Axis.horizontal,
     );
   });
@@ -32,11 +30,10 @@ void main() {
       (WidgetTester tester) async {
     await testCategoryPicker(
       tester: tester,
-      minValue: 1,
-      maxValue: 5,
-      initialValue: 3,
+      options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
+      initialValue: 'Grape',
       scrollBy: 10,
-      expectedValue: 5,
+      expectedValue: 'Peach',
       axis: Axis.horizontal,
     );
   });
@@ -45,37 +42,10 @@ void main() {
       (WidgetTester tester) async {
     await testCategoryPicker(
       tester: tester,
-      minValue: 1,
-      maxValue: 5,
-      initialValue: 3,
+      options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
+      initialValue: 'Grape',
       scrollBy: -10,
-      expectedValue: 1,
-      axis: Axis.horizontal,
-    );
-  });
-
-  testWidgets('Step works', (WidgetTester tester) async {
-    await testCategoryPicker(
-      tester: tester,
-      minValue: 0,
-      maxValue: 6,
-      step: 3,
-      initialValue: 0,
-      scrollBy: 2,
-      expectedValue: 6,
-      axis: Axis.horizontal,
-    );
-  });
-
-  testWidgets('Step cuts max value', (WidgetTester tester) async {
-    await testCategoryPicker(
-      tester: tester,
-      minValue: 0,
-      maxValue: 5,
-      step: 3,
-      initialValue: 0,
-      scrollBy: 3,
-      expectedValue: 3,
+      expectedValue: 'Apple',
       axis: Axis.horizontal,
     );
   });

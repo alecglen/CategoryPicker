@@ -6,86 +6,48 @@ void main() {
   testWidgets('small scroll up works', (WidgetTester tester) async {
     await testCategoryPicker(
         tester: tester,
-        minValue: 1,
-        maxValue: 10,
-        initialValue: 5,
+        options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
+        initialValue: 'Banana',
         scrollBy: 2,
-        expectedValue: 7);
+        expectedValue: 'Cherry');
   });
 
   testWidgets('small scroll down works', (WidgetTester tester) async {
     await testCategoryPicker(
         tester: tester,
-        minValue: 1,
-        maxValue: 10,
-        initialValue: 5,
+        options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
+        initialValue: 'Cherry',
         scrollBy: -2,
-        expectedValue: 3);
+        expectedValue: 'Banana');
   });
 
   testWidgets('overscroll up to max value',
       (WidgetTester tester) async {
     await testCategoryPicker(
         tester: tester,
-        minValue: 1,
-        maxValue: 5,
-        initialValue: 3,
+        options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
+        initialValue: 'Grape',
         scrollBy: 10,
-        expectedValue: 5);
+        expectedValue: 'Peach');
   });
 
   testWidgets('overscroll down to min value',
       (WidgetTester tester) async {
     await testCategoryPicker(
         tester: tester,
-        minValue: 1,
-        maxValue: 5,
-        initialValue: 3,
+        options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
+        initialValue: 'Grape',
         scrollBy: -10,
-        expectedValue: 1);
-  });
-
-  testWidgets('Step works', (WidgetTester tester) async {
-    await testCategoryPicker(
-        tester: tester,
-        minValue: 0,
-        maxValue: 6,
-        step: 3,
-        initialValue: 0,
-        scrollBy: 2,
-        expectedValue: 6);
-  });
-
-  testWidgets('Step cuts max value', (WidgetTester tester) async {
-    await testCategoryPicker(
-        tester: tester,
-        minValue: 0,
-        maxValue: 5,
-        step: 3,
-        initialValue: 0,
-        scrollBy: 3,
-        expectedValue: 3);
-  });
-
-  testWidgets('Zero pad works', (WidgetTester tester) async {
-    await testMultipleValuesInPicker(
-        tester: tester,
-        minValue: 0,
-        maxValue: 10,
-        initialValue: 2,
-        zeroPad: true,
-        scrollBy: 1,
-        expectedDisplayValues: ['02', '03', '04']);
+        expectedValue: 'Apple');
   });
 
   testWidgets('Decorated number picker works', (WidgetTester tester) async {
     await testCategoryPicker(
       tester: tester,
-      minValue: 0,
-      maxValue: 10,
-      initialValue: 2,
+      options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
+      initialValue: 'Banana',
       scrollBy: 2,
-      expectedValue: 4,
+      expectedValue: 'Cherry',
       decoration: decoration,
     );
   });
@@ -93,11 +55,14 @@ void main() {
   testWidgets('Text mapper works', (WidgetTester tester) async {
     await testMultipleValuesInPicker(
         tester: tester,
-        minValue: 0,
-        maxValue: 10,
-        initialValue: 2,
+        options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
+        initialValue: 'Banana',
         scrollBy: 1,
-        textMapper: (text) => '$text days',
-        expectedDisplayValues: ['2 days', '3 days', '4 days']);
+        textMapper: (text) => '$text candy',
+        expectedDisplayValues: [
+          'Banana candy',
+          'Grape candy',
+          'Cherry candy'
+        ]);
   });
 }

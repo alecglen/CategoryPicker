@@ -1,7 +1,7 @@
-name: numberpicker
+name: categorypicker
 version: 2.1.1
-description: NumberPicker is a widget allowing user to choose numbers by scrolling spinners.
-homepage: https://github.com/MarcinusX/NumberPicker
+description: CategoryPicker is a fork of NumberPicker to support categorical selection via the same UI.
+homepage: https://github.com/alecglen/CategoryPicker
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

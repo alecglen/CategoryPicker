@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:numberpicker/numberpicker.dart';
+import 'package:numberpicker/categorypicker.dart';
 
 void main() {
   runApp(new ExampleApp());
@@ -9,7 +9,7 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'NumberPicker Example',
+      title: 'CategoryPicker Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -30,33 +30,23 @@ class _MyHomePageState extends State<MyHomePage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          bottom: TabBar(
-            tabs: [
-              Tab(text: 'Integer'),
-              Tab(text: 'Decimal'),
-            ],
-          ),
-          title: Text('Numberpicker example'),
+          title: Text('Categorypicker example'),
         ),
-        body: TabBarView(
-          children: [
-            _IntegerExample(),
-            _DecimalExample(),
-          ],
-        ),
+        body: _CategoryExample(),
       ),
     );
   }
 }
 
-class _IntegerExample extends StatefulWidget {
+class _CategoryExample extends StatefulWidget {
   @override
-  __IntegerExampleState createState() => __IntegerExampleState();
+  _CategoryExampleState createState() => _CategoryExampleState();
 }
 
-class __IntegerExampleState extends State<_IntegerExample> {
-  int _currentIntValue = 10;
-  int _currentHorizontalIntValue = 10;
+class _CategoryExampleState extends State<_CategoryExample> {
+  String _currentSelection = "Grape";
+  String _currentHorizontalSelection = "Grape";
+  List<String> _options = ["Apple", "Banana", "Grape", "Cherry", "Peach"];
 
   @override
   Widget build(BuildContext context) {
@@ -64,13 +54,11 @@ class __IntegerExampleState extends State<_IntegerExample> {
       children: <Widget>[
         SizedBox(height: 16),
         Text('Default', style: Theme.of(context).textTheme.headline6),
-        NumberPicker(
-          value: _currentIntValue,
-          minValue: 0,
-          maxValue: 100,
-          step: 10,
+        CategoryPicker(
+          value: _currentSelection,
+          options: _options,
           haptics: true,
-          onChanged: (value) => setState(() => _currentIntValue = value),
+          onChanged: (value) => setState(() => _currentSelection = value),
         ),
         SizedBox(height: 32),
         Row(
@@ -79,16 +67,20 @@ class __IntegerExampleState extends State<_IntegerExample> {
             IconButton(
               icon: Icon(Icons.remove),
               onPressed: () => setState(() {
-                final newValue = _currentIntValue - 10;
-                _currentIntValue = newValue.clamp(0, 100);
+                int index = _options.indexOf(_currentSelection);
+                if (index > 0) {
+                  _currentSelection = _options[index - 1];
+                }
               }),
             ),
-            Text('Current int value: $_currentIntValue'),
+            Text('Current selection: $_currentSelection'),
             IconButton(
               icon: Icon(Icons.add),
               onPressed: () => setState(() {
-                final newValue = _currentIntValue + 20;
-                _currentIntValue = newValue.clamp(0, 100);
+                int index = _options.indexOf(_currentSelection);
+                if (index < _options.length - 1) {
+                  _currentSelection = _options[index + 1];
+                }
               }),
             ),
           ],
@@ -96,15 +88,13 @@ class __IntegerExampleState extends State<_IntegerExample> {
         Divider(color: Colors.grey, height: 32),
         SizedBox(height: 16),
         Text('Horizontal', style: Theme.of(context).textTheme.headline6),
-        NumberPicker(
-          value: _currentHorizontalIntValue,
-          minValue: 0,
-          maxValue: 100,
-          step: 10,
+        CategoryPicker(
+          value: _currentHorizontalSelection,
+          options: _options,
           itemHeight: 100,
           axis: Axis.horizontal,
           onChanged: (value) =>
-              setState(() => _currentHorizontalIntValue = value),
+              setState(() => _currentHorizontalSelection = value),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: Colors.black26),
@@ -116,47 +106,24 @@ class __IntegerExampleState extends State<_IntegerExample> {
             IconButton(
               icon: Icon(Icons.remove),
               onPressed: () => setState(() {
-                final newValue = _currentHorizontalIntValue - 10;
-                _currentHorizontalIntValue = newValue.clamp(0, 100);
+                int index = _options.indexOf(_currentSelection);
+                if (index > 0) {
+                  _currentSelection = _options[index - 1];
+                }
               }),
             ),
-            Text('Current horizontal int value: $_currentHorizontalIntValue'),
+            Text('Current horizontal selection: $_currentHorizontalSelection'),
             IconButton(
               icon: Icon(Icons.add),
               onPressed: () => setState(() {
-                final newValue = _currentHorizontalIntValue + 20;
-                _currentHorizontalIntValue = newValue.clamp(0, 100);
+                int index = _options.indexOf(_currentSelection);
+                if (index < _options.length - 1) {
+                  _currentSelection = _options[index + 1];
+                }
               }),
             ),
           ],
         ),
-      ],
-    );
-  }
-}
-
-class _DecimalExample extends StatefulWidget {
-  @override
-  __DecimalExampleState createState() => __DecimalExampleState();
-}
-
-class __DecimalExampleState extends State<_DecimalExample> {
-  double _currentDoubleValue = 3.0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SizedBox(height: 16),
-        Text('Decimal', style: Theme.of(context).textTheme.headline6),
-        DecimalNumberPicker(
-          value: _currentDoubleValue,
-          minValue: 0,
-          maxValue: 10,
-          decimalPlaces: 2,
-          onChanged: (value) => setState(() => _currentDoubleValue = value),
-        ),
-        SizedBox(height: 32),
       ],
     );
   }

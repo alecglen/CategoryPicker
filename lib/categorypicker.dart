@@ -5,7 +5,7 @@ import 'package:infinite_listview/infinite_listview.dart';
 
 typedef TextMapper = String Function(String numberText);
 
-class NumberPicker extends StatefulWidget {
+class CategoryPicker extends StatefulWidget {
   /// Min value user can pick
   final int minValue;
 
@@ -57,7 +57,7 @@ class NumberPicker extends StatefulWidget {
 
   final bool infiniteLoop;
 
-  const NumberPicker({
+  const CategoryPicker({
     Key? key,
     required this.minValue,
     required this.maxValue,
@@ -80,10 +80,10 @@ class NumberPicker extends StatefulWidget {
         super(key: key);
 
   @override
-  _NumberPickerState createState() => _NumberPickerState();
+  _CategoryPickerState createState() => _CategoryPickerState();
 }
 
-class _NumberPickerState extends State<NumberPicker> {
+class _CategoryPickerState extends State<CategoryPicker> {
   late ScrollController _scrollController;
 
   @override
@@ -108,7 +108,7 @@ class _NumberPickerState extends State<NumberPicker> {
       indexOfMiddleElement = indexOfMiddleElement.clamp(0, itemCount - 1);
     }
     final intValueInTheMiddle =
-        _intValueFromIndex(indexOfMiddleElement + additionalItemsOnEachSide);
+    _intValueFromIndex(indexOfMiddleElement + additionalItemsOnEachSide);
 
     if (widget.value != intValueInTheMiddle) {
       widget.onChanged(intValueInTheMiddle);
@@ -118,12 +118,12 @@ class _NumberPickerState extends State<NumberPicker> {
     }
     Future.delayed(
       Duration(milliseconds: 100),
-      () => _maybeCenterValue(),
+          () => _maybeCenterValue(),
     );
   }
 
   @override
-  void didUpdateWidget(NumberPicker oldWidget) {
+  void didUpdateWidget(CategoryPicker oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.value != widget.value) {
       _maybeCenterValue();
@@ -182,7 +182,7 @@ class _NumberPickerState extends State<NumberPicker> {
                 itemBuilder: _itemBuilder,
                 padding: EdgeInsets.zero,
               ),
-            _NumberPickerSelectedItemDecoration(
+            _CategoryPickerSelectedItemDecoration(
               axis: widget.axis,
               itemExtent: itemExtent,
               decoration: widget.decoration,
@@ -208,9 +208,9 @@ class _NumberPickerState extends State<NumberPicker> {
     final child = isExtra
         ? SizedBox.shrink()
         : Text(
-            _getDisplayedValue(value),
-            style: itemStyle,
-          );
+      _getDisplayedValue(value),
+      style: itemStyle,
+    );
 
     return Container(
       width: widget.itemWidth,
@@ -255,12 +255,12 @@ class _NumberPickerState extends State<NumberPicker> {
   }
 }
 
-class _NumberPickerSelectedItemDecoration extends StatelessWidget {
+class _CategoryPickerSelectedItemDecoration extends StatelessWidget {
   final Axis axis;
   final double itemExtent;
   final Decoration? decoration;
 
-  const _NumberPickerSelectedItemDecoration({
+  const _CategoryPickerSelectedItemDecoration({
     Key? key,
     required this.axis,
     required this.itemExtent,

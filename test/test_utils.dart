@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:numberpicker/numberpicker.dart';
+import 'package:numberpicker/categorypicker.dart';
 
 Decoration decoration = BoxDecoration(
   border: Border(
@@ -15,7 +15,7 @@ Decoration decoration = BoxDecoration(
   ),
 );
 
-Future<NumberPicker> testNumberPicker({
+Future<CategoryPicker> testCategoryPicker({
   required WidgetTester tester,
   required int minValue,
   required int maxValue,
@@ -28,12 +28,12 @@ Future<NumberPicker> testNumberPicker({
   Decoration? decoration,
 }) async {
   int value = initialValue;
-  late NumberPicker picker;
+  late CategoryPicker picker;
 
   await tester.pumpWidget(
     StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
       picker = axis == Axis.vertical
-          ? picker = NumberPicker(
+          ? picker = CategoryPicker(
               value: value,
               minValue: minValue,
               maxValue: maxValue,
@@ -42,7 +42,7 @@ Future<NumberPicker> testNumberPicker({
               decoration: decoration,
               onChanged: (newValue) => setState(() => value = newValue),
             )
-          : NumberPicker(
+          : CategoryPicker(
               axis: Axis.horizontal,
               value: value,
               minValue: minValue,
@@ -61,7 +61,7 @@ Future<NumberPicker> testNumberPicker({
   );
   expect(value, equals(initialValue));
 
-  await scrollNumberPicker(Offset(0.0, 0.0), tester, scrollBy, axis);
+  await scrollCategoryPicker(Offset(0.0, 0.0), tester, scrollBy, axis);
   await tester.pumpAndSettle();
 
   expect(value, equals(expectedValue));
@@ -69,7 +69,7 @@ Future<NumberPicker> testNumberPicker({
   return picker;
 }
 
-Future<NumberPicker> testMultipleValuesInPicker({
+Future<CategoryPicker> testMultipleValuesInPicker({
   required WidgetTester tester,
   required int minValue,
   required int maxValue,
@@ -83,12 +83,12 @@ Future<NumberPicker> testMultipleValuesInPicker({
   required List<String> expectedDisplayValues,
 }) async {
   int value = initialValue;
-  late NumberPicker picker;
+  late CategoryPicker picker;
 
   await tester.pumpWidget(
     StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
       picker = axis == Axis.vertical
-          ? picker = NumberPicker(
+          ? picker = CategoryPicker(
               value: value,
               minValue: minValue,
               maxValue: maxValue,
@@ -97,7 +97,7 @@ Future<NumberPicker> testMultipleValuesInPicker({
               onChanged: (newValue) => setState(() => value = newValue),
               zeroPad: zeroPad,
             )
-          : NumberPicker(
+          : CategoryPicker(
               value: value,
               minValue: minValue,
               maxValue: maxValue,
@@ -115,7 +115,7 @@ Future<NumberPicker> testMultipleValuesInPicker({
   );
   expect(value, equals(initialValue));
 
-  await scrollNumberPicker(Offset(0.0, 0.0), tester, scrollBy, axis);
+  await scrollCategoryPicker(Offset(0.0, 0.0), tester, scrollBy, axis);
   await tester.pumpAndSettle();
 
   for (String displayValue in expectedDisplayValues) {
@@ -125,7 +125,7 @@ Future<NumberPicker> testMultipleValuesInPicker({
   return picker;
 }
 
-scrollNumberPicker(
+scrollCategoryPicker(
   Offset pickerPosition,
   WidgetTester tester,
   int scrollBy,

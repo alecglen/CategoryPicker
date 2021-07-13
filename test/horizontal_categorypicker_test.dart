@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'test_utils.dart';
 
 void main() {
-  testWidgets('Integer small scroll up works', (WidgetTester tester) async {
-    await testNumberPicker(
+  testWidgets('small scroll up works', (WidgetTester tester) async {
+    await testCategoryPicker(
       tester: tester,
       minValue: 1,
       maxValue: 10,
@@ -16,8 +16,8 @@ void main() {
     );
   });
 
-  testWidgets('Integer small scroll down works', (WidgetTester tester) async {
-    await testNumberPicker(
+  testWidgets('small scroll down works', (WidgetTester tester) async {
+    await testCategoryPicker(
       tester: tester,
       minValue: 1,
       maxValue: 10,
@@ -28,9 +28,9 @@ void main() {
     );
   });
 
-  testWidgets('Integer overscroll up to max value',
+  testWidgets('overscroll up to max value',
       (WidgetTester tester) async {
-    await testNumberPicker(
+    await testCategoryPicker(
       tester: tester,
       minValue: 1,
       maxValue: 5,
@@ -41,9 +41,9 @@ void main() {
     );
   });
 
-  testWidgets('Integer overscroll down to min value',
+  testWidgets('overscroll down to min value',
       (WidgetTester tester) async {
-    await testNumberPicker(
+    await testCategoryPicker(
       tester: tester,
       minValue: 1,
       maxValue: 5,
@@ -55,7 +55,7 @@ void main() {
   });
 
   testWidgets('Step works', (WidgetTester tester) async {
-    await testNumberPicker(
+    await testCategoryPicker(
       tester: tester,
       minValue: 0,
       maxValue: 6,
@@ -68,7 +68,7 @@ void main() {
   });
 
   testWidgets('Step cuts max value', (WidgetTester tester) async {
-    await testNumberPicker(
+    await testCategoryPicker(
       tester: tester,
       minValue: 0,
       maxValue: 5,

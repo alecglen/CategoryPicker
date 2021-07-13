@@ -59,7 +59,7 @@ class WidgetPicker extends StatefulWidget {
     this.decoration,
     this.textMapper,
     this.infiniteLoop = false,
-  }) : assert(options.contains(value)),
+  })  : assert(options.contains(value)),
         super(key: key);
 
   @override
@@ -72,7 +72,8 @@ class _WidgetPickerState extends State<WidgetPicker> {
   @override
   void initState() {
     super.initState();
-    final initialOffset = widget.options.indexOf(widget.value).toDouble() * itemExtent;
+    final initialOffset =
+        widget.options.indexOf(widget.value).toDouble() * itemExtent;
     if (widget.infiniteLoop) {
       _scrollController =
           InfiniteScrollController(initialScrollOffset: initialOffset);
@@ -90,7 +91,7 @@ class _WidgetPickerState extends State<WidgetPicker> {
       indexOfMiddleElement = indexOfMiddleElement.clamp(0, itemCount - 1);
     }
     final valueInTheMiddle =
-    _valueFromIndex(indexOfMiddleElement + additionalItemsOnEachSide);
+        _valueFromIndex(indexOfMiddleElement + additionalItemsOnEachSide);
 
     if (widget.value != valueInTheMiddle) {
       widget.onChanged(valueInTheMiddle);
@@ -100,7 +101,7 @@ class _WidgetPickerState extends State<WidgetPicker> {
     }
     Future.delayed(
       Duration(milliseconds: 100),
-          () => _maybeCenterValue(),
+      () => _maybeCenterValue(),
     );
   }
 

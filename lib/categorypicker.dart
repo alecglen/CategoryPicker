@@ -6,27 +6,17 @@ import 'package:infinite_listview/infinite_listview.dart';
 typedef TextMapper = String Function(String numberText);
 
 class CategoryPicker extends StatefulWidget {
-  /// Min value user can pick
-  final int minValue;
-
-  /// Max value user can pick
-  final int maxValue;
+  /// Available values a user can pick
+  final List<String> options;
 
   /// Currently selected value
-  final int value;
+  final String value;
 
   /// Called when selected value changes
-  final ValueChanged<int> onChanged;
+  final ValueChanged<String> onChanged;
 
   /// Specifies how many items should be shown - defaults to 3
   final int itemCount;
-
-  /// Step between elements. Only for integer datePicker
-  /// Examples:
-  /// if step is 100 the following elements may be 100, 200, 300...
-  /// if min=0, max=6, step=3, then items will be 0, 3 and 6
-  /// if min=0, max=5, step=3, then items will be 0 and 3.
-  final int step;
 
   /// height of single item in pixels
   final double itemHeight;
@@ -49,22 +39,17 @@ class CategoryPicker extends StatefulWidget {
   /// Build the text of each item on the picker
   final TextMapper? textMapper;
 
-  /// Pads displayed integer values up to the length of maxValue
-  final bool zeroPad;
-
   /// Decoration to apply to central box where the selected value is placed
   final Decoration? decoration;
 
   final bool infiniteLoop;
 
-  const CategoryPicker({
+  CategoryPicker({
     Key? key,
-    required this.minValue,
-    required this.maxValue,
+    required this.options,
     required this.value,
     required this.onChanged,
     this.itemCount = 3,
-    this.step = 1,
     this.itemHeight = 50,
     this.itemWidth = 100,
     this.axis = Axis.vertical,
@@ -72,11 +57,9 @@ class CategoryPicker extends StatefulWidget {
     this.selectedTextStyle,
     this.haptics = false,
     this.decoration,
-    this.zeroPad = false,
     this.textMapper,
     this.infiniteLoop = false,
-  })  : assert(minValue <= value),
-        assert(value <= maxValue),
+  }) : assert(options.contains(value)),
         super(key: key);
 
   @override
@@ -89,8 +72,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
   @override
   void initState() {
     super.initState();
-    final initialOffset =
-        (widget.value - widget.minValue) ~/ widget.step * itemExtent;
+    final initialOffset = widget.options.indexOf(widget.value).toDouble();
     if (widget.infiniteLoop) {
       _scrollController =
           InfiniteScrollController(initialScrollOffset: initialOffset);
@@ -107,11 +89,11 @@ class _CategoryPickerState extends State<CategoryPicker> {
     } else {
       indexOfMiddleElement = indexOfMiddleElement.clamp(0, itemCount - 1);
     }
-    final intValueInTheMiddle =
-    _intValueFromIndex(indexOfMiddleElement + additionalItemsOnEachSide);
+    final valueInTheMiddle =
+    _valueFromIndex(indexOfMiddleElement + additionalItemsOnEachSide);
 
-    if (widget.value != intValueInTheMiddle) {
-      widget.onChanged(intValueInTheMiddle);
+    if (widget.value != valueInTheMiddle) {
+      widget.onChanged(valueInTheMiddle);
       if (widget.haptics) {
         HapticFeedback.selectionClick();
       }
@@ -141,7 +123,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
   double get itemExtent =>
       widget.axis == Axis.vertical ? widget.itemHeight : widget.itemWidth;
 
-  int get itemCount => (widget.maxValue - widget.minValue) ~/ widget.step + 1;
+  int get itemCount => widget.options.length;
 
   int get listItemsCount => itemCount + 2 * additionalItemsOnEachSide;
 
@@ -199,7 +181,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
     final selectedStyle = widget.selectedTextStyle ??
         themeData.textTheme.headline5?.copyWith(color: themeData.accentColor);
 
-    final value = _intValueFromIndex(index % itemCount);
+    final value = _valueFromIndex(index % itemCount);
     final isExtra = !widget.infiniteLoop &&
         (index < additionalItemsOnEachSide ||
             index >= listItemsCount - additionalItemsOnEachSide);
@@ -208,7 +190,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
     final child = isExtra
         ? SizedBox.shrink()
         : Text(
-      _getDisplayedValue(value),
+      value,
       style: itemStyle,
     );
 
@@ -220,27 +202,11 @@ class _CategoryPickerState extends State<CategoryPicker> {
     );
   }
 
-  String _getDisplayedValue(int value) {
-    final text = widget.zeroPad
-        ? value.toString().padLeft(widget.maxValue.toString().length, '0')
-        : value.toString();
-    if (widget.textMapper != null) {
-      return widget.textMapper!(text);
-    } else {
-      return text;
-    }
-  }
-
-  int _intValueFromIndex(int index) {
-    index -= additionalItemsOnEachSide;
-    index %= itemCount;
-    return widget.minValue + index * widget.step;
-  }
+  String _valueFromIndex(int index) => widget.options[index % itemCount];
 
   void _maybeCenterValue() {
     if (_scrollController.hasClients && !isScrolling) {
-      int diff = widget.value - widget.minValue;
-      int index = diff ~/ widget.step;
+      int index = widget.options.indexOf(widget.value);
       if (widget.infiniteLoop) {
         final offset = _scrollController.offset + 0.5 * itemExtent;
         final cycles = (offset / (itemCount * itemExtent)).floor();

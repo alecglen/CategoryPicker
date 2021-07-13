@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:numberpicker/categorypicker.dart';
+import 'package:categorypicker/categorypicker.dart';
 
 void main() {
   runApp(new ExampleApp());

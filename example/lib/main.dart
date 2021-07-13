@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:categorypicker/categorypicker.dart';
+import 'package:widgetpicker/widgetpicker.dart';
 
 void main() {
   runApp(new ExampleApp());
@@ -9,7 +9,7 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'CategoryPicker Example',
+      title: 'WidgetPicker Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -30,20 +30,20 @@ class _MyHomePageState extends State<MyHomePage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Categorypicker example'),
+          title: Text('Widgetpicker example'),
         ),
-        body: _CategoryExample(),
+        body: _WidgetExample(),
       ),
     );
   }
 }
 
-class _CategoryExample extends StatefulWidget {
+class _WidgetExample extends StatefulWidget {
   @override
-  _CategoryExampleState createState() => _CategoryExampleState();
+  _WidgetExampleState createState() => _WidgetExampleState();
 }
 
-class _CategoryExampleState extends State<_CategoryExample> {
+class _WidgetExampleState extends State<_WidgetExample> {
   String _currentSelection = "Grape";
   String _currentHorizontalSelection = "Grape";
   List<String> _options = ["Apple", "Banana", "Grape", "Cherry", "Peach"];
@@ -54,7 +54,7 @@ class _CategoryExampleState extends State<_CategoryExample> {
       children: <Widget>[
         SizedBox(height: 16),
         Text('Default', style: Theme.of(context).textTheme.headline6),
-        CategoryPicker(
+        WidgetPicker(
           value: _currentSelection,
           options: _options,
           haptics: true,
@@ -88,7 +88,7 @@ class _CategoryExampleState extends State<_CategoryExample> {
         Divider(color: Colors.grey, height: 32),
         SizedBox(height: 16),
         Text('Horizontal', style: Theme.of(context).textTheme.headline6),
-        CategoryPicker(
+        WidgetPicker(
           value: _currentHorizontalSelection,
           options: _options,
           itemHeight: 100,

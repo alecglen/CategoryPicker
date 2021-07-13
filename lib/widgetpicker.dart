@@ -5,7 +5,7 @@ import 'package:infinite_listview/infinite_listview.dart';
 
 typedef TextMapper = String Function(String numberText);
 
-class CategoryPicker extends StatefulWidget {
+class WidgetPicker extends StatefulWidget {
   /// Available values a user can pick
   final List<String> options;
 
@@ -44,7 +44,7 @@ class CategoryPicker extends StatefulWidget {
 
   final bool infiniteLoop;
 
-  CategoryPicker({
+  WidgetPicker({
     Key? key,
     required this.options,
     required this.value,
@@ -63,10 +63,10 @@ class CategoryPicker extends StatefulWidget {
         super(key: key);
 
   @override
-  _CategoryPickerState createState() => _CategoryPickerState();
+  _WidgetPickerState createState() => _WidgetPickerState();
 }
 
-class _CategoryPickerState extends State<CategoryPicker> {
+class _WidgetPickerState extends State<WidgetPicker> {
   late ScrollController _scrollController;
 
   @override
@@ -105,7 +105,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
   }
 
   @override
-  void didUpdateWidget(CategoryPicker oldWidget) {
+  void didUpdateWidget(WidgetPicker oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.value != widget.value) {
       _maybeCenterValue();
@@ -164,7 +164,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
                 itemBuilder: _itemBuilder,
                 padding: EdgeInsets.zero,
               ),
-            _CategoryPickerSelectedItemDecoration(
+            _WidgetPickerSelectedItemDecoration(
               axis: widget.axis,
               itemExtent: itemExtent,
               decoration: widget.decoration,
@@ -225,12 +225,12 @@ class _CategoryPickerState extends State<CategoryPicker> {
   }
 }
 
-class _CategoryPickerSelectedItemDecoration extends StatelessWidget {
+class _WidgetPickerSelectedItemDecoration extends StatelessWidget {
   final Axis axis;
   final double itemExtent;
   final Decoration? decoration;
 
-  const _CategoryPickerSelectedItemDecoration({
+  const _WidgetPickerSelectedItemDecoration({
     Key? key,
     required this.axis,
     required this.itemExtent,

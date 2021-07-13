@@ -1,24 +1,24 @@
-# CategoryPicker
+# WidgetPicker
 
-CategoryPicker is a fork of [NumberPicker](https://pub.dev/packages/numberpicker) to support categorical selection via the same UI.
+WidgetPicker is a fork of [NumberPicker](https://pub.dev/packages/numberpicker) to support categorical selection via the same UI.
 
 ## Example:
 (See `example` for more)
 
 ```dart
-class _CategoryExample extends StatefulWidget {
+class _WidgetExample extends StatefulWidget {
   @override
-  __CategoryExampleState createState() => __CategoryExampleState();
+  __WidgetExampleState createState() => __WidgetExampleState();
 }
 
-class __CategoryExampleState extends State<_CategoryExample> {
+class __WidgetExampleState extends State<_WidgetExample> {
   String _currentValue = "Grape";
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        CategoryPicker(
+        WidgetPicker(
           value: _currentValue,
           options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
           onChanged: (value) => setState(() => _currentValue = value),

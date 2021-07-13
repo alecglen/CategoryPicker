@@ -1,7 +1,7 @@
-name: categorypicker
+name: widgetpicker
 version: 0.1.0
-description: CategoryPicker is a fork of NumberPicker to support categorical selection via the same UI.
-homepage: https://github.com/alecglen/CategoryPicker
+description: WidgetPicker is a fork of NumberPicker to support categorical selection via the same UI.
+homepage: https://github.com/alecglen/WidgetPicker
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

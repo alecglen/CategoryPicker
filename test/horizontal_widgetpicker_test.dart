@@ -5,7 +5,7 @@ import 'test_utils.dart';
 
 void main() {
   testWidgets('small scroll up works', (WidgetTester tester) async {
-    await testCategoryPicker(
+    await testWidgetPicker(
       tester: tester,
       options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
       initialValue: 'Banana',
@@ -16,7 +16,7 @@ void main() {
   });
 
   testWidgets('small scroll down works', (WidgetTester tester) async {
-    await testCategoryPicker(
+    await testWidgetPicker(
       tester: tester,
       options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
       initialValue: 'Cherry',
@@ -28,7 +28,7 @@ void main() {
 
   testWidgets('overscroll up to max value',
       (WidgetTester tester) async {
-    await testCategoryPicker(
+    await testWidgetPicker(
       tester: tester,
       options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
       initialValue: 'Grape',
@@ -40,7 +40,7 @@ void main() {
 
   testWidgets('overscroll down to min value',
       (WidgetTester tester) async {
-    await testCategoryPicker(
+    await testWidgetPicker(
       tester: tester,
       options: ["Apple", "Banana", "Grape", "Cherry", "Peach"],
       initialValue: 'Grape',

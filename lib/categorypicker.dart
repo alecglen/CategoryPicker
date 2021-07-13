@@ -72,7 +72,7 @@ class _CategoryPickerState extends State<CategoryPicker> {
   @override
   void initState() {
     super.initState();
-    final initialOffset = widget.options.indexOf(widget.value).toDouble();
+    final initialOffset = widget.options.indexOf(widget.value).toDouble() * itemExtent;
     if (widget.infiniteLoop) {
       _scrollController =
           InfiniteScrollController(initialScrollOffset: initialOffset);
@@ -190,9 +190,9 @@ class _CategoryPickerState extends State<CategoryPicker> {
     final child = isExtra
         ? SizedBox.shrink()
         : Text(
-      value,
-      style: itemStyle,
-    );
+            widget.textMapper != null ? widget.textMapper!(value) : value,
+            style: itemStyle,
+          );
 
     return Container(
       width: widget.itemWidth,
@@ -202,7 +202,11 @@ class _CategoryPickerState extends State<CategoryPicker> {
     );
   }
 
-  String _valueFromIndex(int index) => widget.options[index % itemCount];
+  String _valueFromIndex(int index) {
+    index -= additionalItemsOnEachSide;
+    index %= itemCount;
+    return widget.options[index];
+  }
 
   void _maybeCenterValue() {
     if (_scrollController.hasClients && !isScrolling) {
